@@ -16,7 +16,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-app.use(cors({ origin: (origin, callback) => callback(null, true), credentials: true }));
+const corsOrigin = process.env.CORS_ORIGIN || 'http://localhost:4200';
+app.use(cors({
+    origin: process.env.NODE_ENV === 'production' 
+        ? corsOrigin 
+        : (origin: any, callback: any) => callback(null, true),
+    credentials: true
+}));
 
 app.use('/accounts', accountsController);
 
