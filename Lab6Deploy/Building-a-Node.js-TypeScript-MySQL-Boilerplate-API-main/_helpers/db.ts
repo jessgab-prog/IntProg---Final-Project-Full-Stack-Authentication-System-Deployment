@@ -16,7 +16,7 @@ async function connect() {
     await connection.end();
 
     // Connect Sequelize and initialize models.
-    const sequelize = new Sequelize(database, user, password, { dialect: 'mysql' });
+    const sequelize = new Sequelize(database, user, password, { host, port, dialect: 'mysql' });
     await sequelize.authenticate();
 
     db.Account = accountModel(sequelize);
